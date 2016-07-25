@@ -2,7 +2,8 @@
 // Error handling not included if user declines
 $app_id = 297106610639946;
 $graph_url = 'https://graph.facebook.com';
-$redirect_uri = 'http://local.host:63342/IAP/Aflevering1/index-manual-login-success.php';
+//$redirect_uri = 'http://local.host:63342/IAP/Aflevering1/index-manual-login-success.php';
+$redirect_uri = 'http://iapmathiasogjens.epizy.com/Aflevering1/index-manual-login-success.php';
 $secret = 'd1eb17ecb23c0ee7bc44b335ccdae60d';
 $code = $_GET['code'];
 

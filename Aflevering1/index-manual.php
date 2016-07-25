@@ -6,6 +6,6 @@
 </head>
 <body>
 <a href="
-https://www.facebook.com/dialog/oauth?client_id=297106610639946&redirect_uri=http://local.host:63342/IAP/Aflevering1/index-manual-login-success.php&scope=email">Login with facebook</a>
+https://www.facebook.com/dialog/oauth?client_id=297106610639946&redirect_uri=http://iapmathiasogjens.epizy.com/Aflevering1/index-manual-login-success.php&scope=email">Login with facebook</a>
 </body>
 </html>
