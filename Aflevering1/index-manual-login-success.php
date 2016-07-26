@@ -1,20 +1,20 @@
 <?php
+include_once('./constants.php');
+
 // Error handling not included if user declines
 $app_id = 297106610639946;
 $graph_url = 'https://graph.facebook.com';
-//$redirect_uri = 'http://local.host:63342/IAP/Aflevering1/index-manual-login-success.php';
-$redirect_uri = 'http://iapmathiasogjens.epizy.com/Aflevering1/index-manual-login-success.php';
+
 $secret = 'd1eb17ecb23c0ee7bc44b335ccdae60d';
 $code = $_GET['code'];
 
-
 // Ensure identity
-$user_access_token_uri = "$graph_url/v2.3/oauth/access_token?client_id=297106610639946&redirect_uri=$redirect_uri&client_secret=$secret&code=$code";
+$user_access_token_uri = "$graph_url/v2.3/oauth/access_token?client_id=297106610639946&redirect_uri=".constant('REDIRECT_URI')."&client_secret=$secret&code=$code";
 $user_access_token_data = json_decode(file_get_contents($user_access_token_uri), TRUE);
 $user_access_token = $user_access_token_data['access_token'];
 
 $app_access_token_uri = "$graph_url/oauth/access_token?client_id=297106610639946&client_secret=d1eb17ecb23c0ee7bc44b335ccdae60d&grant_type=client_credentials";
-$app_access_token = explode('=', file_get_contents($app_access_token_uri))[1];
+$app_access_token = explode('=', file_get_contents($app_access_token_uri))[1]   ;
 
 $inspected_token_uri = "https://graph.facebook.com/debug_token?input_token=$user_access_token&access_token=$app_access_token";
 $inspected_token_uri_data = json_decode(file_get_contents($inspected_token_uri), TRUE);
