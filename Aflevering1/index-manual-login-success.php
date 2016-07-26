@@ -1,10 +1,9 @@
 <?php
 include_once('./constants.php');
 
-// Error handling not included if user declines
+// Error handling not included in case user declines
 $app_id = 297106610639946;
 $graph_url = 'https://graph.facebook.com';
-
 $secret = 'd1eb17ecb23c0ee7bc44b335ccdae60d';
 $code = $_GET['code'];
 
@@ -14,7 +13,7 @@ $user_access_token_data = json_decode(file_get_contents($user_access_token_uri),
 $user_access_token = $user_access_token_data['access_token'];
 
 $app_access_token_uri = "$graph_url/oauth/access_token?client_id=297106610639946&client_secret=d1eb17ecb23c0ee7bc44b335ccdae60d&grant_type=client_credentials";
-$app_access_token = explode('=', file_get_contents($app_access_token_uri))[1]   ;
+$app_access_token = explode('=', file_get_contents($app_access_token_uri))[1];
 
 $inspected_token_uri = "https://graph.facebook.com/debug_token?input_token=$user_access_token&access_token=$app_access_token";
 $inspected_token_uri_data = json_decode(file_get_contents($inspected_token_uri), TRUE);
