@@ -29,6 +29,7 @@ public class Aflevering2Resource {
     @Timed
     public Saying sayHello(@QueryParam("name") Optional<String> name) {
         final String value = String.format(template, name.orElse(defaultName));
-        return new Saying(counter.incrementAndGet(), value);
+        return new Saying(10, "Hello world!");
+        //return new Saying(counter.incrementAndGet(), value);
     }
 }
