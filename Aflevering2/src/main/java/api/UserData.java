@@ -10,6 +10,10 @@ public class UserData {
     private String birthday;
     private String gender;
 
+    public UserData() {
+
+    }
+
     public UserData(String name, String birthday, String gender) {
         this.name = name;
         this.birthday = birthday;
