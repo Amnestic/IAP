@@ -45,7 +45,7 @@ public class ClientResource {
         response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
         UserData data = response.readEntity(UserData.class);
 
-        return "Name: " + data.getName() + "<br/> Birthday: " + data.getBirthday() + "<br/> Gender: " + data.getGender();
+        return "Name: " + data.getName() + ", Birthday: " + data.getBirthday() + ", Gender: " + data.getGender();
     }
 
     @GET
