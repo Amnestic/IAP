@@ -51,7 +51,6 @@ public class ClientResource {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public String index() {
-        // TODO
-        return null;
+        return "<a href=\"http://localhost:8080/authorization/request_authz?response_type=code&client_id=1337&redirect_uri=localhost:8080/client/success\">Klik her for at authorize 1337!</a>";
     }
 }
