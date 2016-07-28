@@ -2,6 +2,7 @@ package resources;
 
 
 import api.AccessToken;
+import api.TokenValidation;
 import db.Database;
 import exceptions.AuthorizationDeniedException;
 
@@ -99,5 +100,16 @@ public class AuthorizationServerResource {
         return accessToken;
     }
 
+
+    @GET
+    @Path("/validate_token")
+    public TokenValidation validateToken(@QueryParam("access_token") int accessToken) {
+        return (database.validateTokenForScope(Scope.ALL, accessToken)) ? new TokenValidation(true) : new TokenValidation(false);
+    }
+
+
+    public enum Scope {
+        ALL
+    }
     // http://localhost:8080/authorization/request_authz?response_type=code&client_id=1337&redirect_uri=localhost:8080/client/success
 }

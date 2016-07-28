@@ -1,6 +1,7 @@
 package db;
 
 import api.AccessToken;
+import resources.AuthorizationServerResource;
 
 import java.security.SecureRandom;
 import java.util.HashMap;
@@ -57,6 +58,10 @@ public class DatabaseMock implements Database {
 
     public void deleteAuthorizationCode(int code) {
         authzCodeDatabase.remove(code);
+    }
+
+    public boolean validateTokenForScope(AuthorizationServerResource.Scope scope, int accessToken) {
+        return accessTokenDatabase.get(accessToken) != null;
     }
 
 

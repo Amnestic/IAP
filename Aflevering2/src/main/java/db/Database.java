@@ -1,6 +1,7 @@
 package db;
 
 import api.AccessToken;
+import resources.AuthorizationServerResource;
 
 public interface Database {
     boolean validateUserPassword(String username, String password);
@@ -12,4 +13,6 @@ public interface Database {
     AccessToken createAndStoreAccessToken(int code);
 
     void deleteAuthorizationCode(int code);
+
+    boolean validateTokenForScope(AuthorizationServerResource.Scope scope, int accessToken);
 }
