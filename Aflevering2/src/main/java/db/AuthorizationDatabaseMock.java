@@ -48,7 +48,7 @@ public class AuthorizationDatabaseMock implements AuthorizationDatabase {
         AuthorizationData authorizationData = authzCodeDatabase.get(code);
 
         SecureRandom random = new SecureRandom();
-        int accessToken =  random.nextInt();
+        int accessToken = random.nextInt();
         accessToken = (code < 0) ? code * -1 : code;
 
         AccessTokenData accessTokenData = new AccessTokenData(authorizationData.getClientID(), authorizationData.getUserID(), System.currentTimeMillis(), DEFAULT_EXPIRATION_TIME);

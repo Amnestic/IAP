@@ -33,10 +33,11 @@ public class ResourceServerResource {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/request_public_info")
     public UserData requestPublicInfo(@QueryParam("access_token") String accessToken) {
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://localhost:8080").path("authorization/validate_token?access_token=" + accessToken);
+        WebTarget target = client.target("http://localhost:8080").path("authorization/validate_token").queryParam("access_token", accessToken);
         Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
         TokenValidation validation = response.readEntity(TokenValidation.class);
 

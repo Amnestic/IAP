@@ -26,7 +26,7 @@ public class ClientResource {
     }
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_HTML)
     @Path("/success")
     public String success(@NotNull @QueryParam("code") int code) {
         // Get access token
@@ -40,10 +40,11 @@ public class ClientResource {
         Response response = target.request(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
         AccessToken accessToken = response.readEntity(AccessToken.class);
 
-        // request resource
-        WebTarget resourceTarget = client.target("http://localhost:8080").path("resource/request_public_info?access_token=" + accessToken);
-        Response resourceResponse = resourceTarget.request(MediaType.APPLICATION_JSON_TYPE).get();
-        UserData data = resourceResponse.readEntity(UserData.class);
+        // request resource?
+        target = client.target("http://localhost:8080").path("resource/request_public_info").queryParam("access_token", accessToken.getAccessToken());
+        response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
+        UserData data = response.readEntity(UserData.class);
+
         return "Name: " + data.getName() + "<br/> Birthday: " + data.getBirthday() + "<br/> Gender: " + data.getGender();
     }
 
