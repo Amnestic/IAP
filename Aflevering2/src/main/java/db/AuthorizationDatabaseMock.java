@@ -6,14 +6,14 @@ import resources.AuthorizationServerResource;
 import java.security.SecureRandom;
 import java.util.HashMap;
 
-public class DatabaseMock implements Database {
+public class AuthorizationDatabaseMock implements AuthorizationDatabase {
     private final int DEFAULT_EXPIRATION_TIME = 3600000;
 
     private HashMap<String, String> userDatabase = new HashMap<String, String>();
     private HashMap<Integer, AuthorizationData> authzCodeDatabase = new HashMap<Integer, AuthorizationData>();
     private HashMap<Integer, AccessTokenData> accessTokenDatabase = new HashMap<Integer, AccessTokenData>();
 
-    public DatabaseMock() {
+    public AuthorizationDatabaseMock() {
         userDatabase.put("Jens", "123456");
         userDatabase.put("Mathias", "654321");
         userDatabase.put("woopwoop", "123");
@@ -62,6 +62,10 @@ public class DatabaseMock implements Database {
 
     public boolean validateTokenForScope(AuthorizationServerResource.Scope scope, int accessToken) {
         return accessTokenDatabase.get(accessToken) != null;
+    }
+
+    public String getUserFromToken(int accessToken){
+        return accessTokenDatabase.get(accessToken).userID;
     }
 
 

@@ -1,6 +1,7 @@
 package resources;
 
 import api.AccessToken;
+import api.UserData;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
@@ -38,7 +39,12 @@ public class ClientResource {
         form.param("client_id", String.valueOf(clientID));
         Response response = target.request(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
         AccessToken accessToken = response.readEntity(AccessToken.class);
-        return accessToken.getAccessToken() + "";
+
+        // request resource
+        WebTarget resourceTarget = client.target("http://localhost:8080").path("resource/request_public_info?access_token=" + accessToken);
+        Response resourceResponse = resourceTarget.request(MediaType.APPLICATION_JSON_TYPE).get();
+        UserData data = resourceResponse.readEntity(UserData.class);
+        return "Name: " + data.getName() + "<br/> Birthday: " + data.getBirthday() + "<br/> Gender: " + data.getGender();
     }
 
     @GET

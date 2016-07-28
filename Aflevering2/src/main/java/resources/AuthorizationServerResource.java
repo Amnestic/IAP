@@ -3,7 +3,7 @@ package resources;
 
 import api.AccessToken;
 import api.TokenValidation;
-import db.Database;
+import db.AuthorizationDatabase;
 import exceptions.AuthorizationDeniedException;
 
 import javax.validation.constraints.NotNull;
@@ -11,7 +11,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
-import java.rmi.AccessException;
 import java.security.SecureRandom;
 import java.util.Optional;
 
@@ -19,10 +18,10 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class AuthorizationServerResource {
 
-    private Database database;
+    private AuthorizationDatabase authorizationDatabase;
 
-    public AuthorizationServerResource(Database database) {
-        this.database = database;
+    public AuthorizationServerResource(AuthorizationDatabase authorizationDatabase) {
+        this.authorizationDatabase = authorizationDatabase;
     }
 
     // State ignored here
@@ -70,14 +69,14 @@ public class AuthorizationServerResource {
     public Response login(@NotNull @FormParam("client_id") int clientID, @NotNull @FormParam("redirect_uri") String redirectURI,
                           @FormParam("scope") Optional<String> scope, @NotNull @FormParam("response_type") String responseType,
                           @NotNull @FormParam("username") String username, @NotNull @FormParam("password") String password) {
-        if (!database.validateUserPassword(username, password)) throw new AuthorizationDeniedException();
+        if (!authorizationDatabase.validateUserPassword(username, password)) throw new AuthorizationDeniedException();
         if (!responseType.equals("code")) throw new AuthorizationDeniedException();
 
         // Generate code and store
         SecureRandom random = new SecureRandom();
         int code =  random.nextInt();
         code = (code < 0) ? code * -1 : code;
-        database.storeAuthorizationCodeForClient(code, clientID, username, System.currentTimeMillis(), redirectURI);
+        authorizationDatabase.storeAuthorizationCodeForClient(code, clientID, username, System.currentTimeMillis(), redirectURI);
 
         // Redirect to client - since we are on localhost, we need to supply the relative path.
         // TODO use redirect_uri
@@ -92,10 +91,10 @@ public class AuthorizationServerResource {
 
         // TODO should couple code with its scope
 
-        if (!database.validateCodeForClient(code, clientID, redirectURI)) throw new AuthorizationDeniedException();
+        if (!authorizationDatabase.validateCodeForClient(code, clientID, redirectURI)) throw new AuthorizationDeniedException();
 
-        AccessToken accessToken = database.createAndStoreAccessToken(code);
-        database.deleteAuthorizationCode(code);
+        AccessToken accessToken = authorizationDatabase.createAndStoreAccessToken(code);
+        authorizationDatabase.deleteAuthorizationCode(code);
 
         return accessToken;
     }
@@ -104,7 +103,8 @@ public class AuthorizationServerResource {
     @GET
     @Path("/validate_token")
     public TokenValidation validateToken(@QueryParam("access_token") int accessToken) {
-        return (database.validateTokenForScope(Scope.ALL, accessToken)) ? new TokenValidation(true) : new TokenValidation(false);
+        String userID = authorizationDatabase.getUserFromToken(accessToken);
+        return (authorizationDatabase.validateTokenForScope(Scope.ALL, accessToken)) ? new TokenValidation(true, userID) : new TokenValidation(false, userID);
     }
 
 

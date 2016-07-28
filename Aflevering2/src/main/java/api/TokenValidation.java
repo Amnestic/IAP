@@ -8,13 +8,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class TokenValidation {
 
     private boolean valid;
+    private String userID;
 
-    public TokenValidation(boolean valid) {
+    public TokenValidation(boolean valid, String userID) {
         this.valid = valid;
+        this.userID = userID;
     }
 
     @JsonProperty
     public boolean isValid() {
         return valid;
+    }
+
+    @JsonProperty
+    public String getUserID() {
+        return userID;
     }
 }

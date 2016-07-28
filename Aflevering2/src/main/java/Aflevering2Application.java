@@ -1,5 +1,7 @@
-import db.Database;
-import db.DatabaseMock;
+import db.AuthorizationDatabase;
+import db.AuthorizationDatabaseMock;
+import db.ResourceDatabase;
+import db.ResourceDatabaseMock;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -19,10 +21,11 @@ public class Aflevering2Application extends Application<Aflevering2Configuration
 
 
     public void run(Aflevering2Configuration configuration, Environment environment) throws Exception {
-        Database database = new DatabaseMock();
+        AuthorizationDatabase authorizationDatabase = new AuthorizationDatabaseMock();
+        ResourceDatabase resourceDatabase = new ResourceDatabaseMock();
 
-        final AuthorizationServerResource authorizationServerResource = new AuthorizationServerResource(database);
-        final ResourceServerResource resourceServerResource = new ResourceServerResource();
+        final AuthorizationServerResource authorizationServerResource = new AuthorizationServerResource(authorizationDatabase);
+        final ResourceServerResource resourceServerResource = new ResourceServerResource(resourceDatabase);
         final ClientResource clientResource = new ClientResource(1337);
         environment.jersey().register(authorizationServerResource);
         environment.jersey().register(resourceServerResource);
