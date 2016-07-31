@@ -26,7 +26,7 @@ public class Aflevering2Application extends Application<Aflevering2Configuration
 
         final AuthorizationServerResource authorizationServerResource = new AuthorizationServerResource(authorizationDatabase);
         final ResourceServerResource resourceServerResource = new ResourceServerResource(resourceDatabase);
-        final ClientResource clientResource = new ClientResource(1337);
+        final ClientResource clientResource = new ClientResource(1337, 7331);
         environment.jersey().register(authorizationServerResource);
         environment.jersey().register(resourceServerResource);
         environment.jersey().register(clientResource);

@@ -12,11 +12,13 @@ public class AuthorizationDatabaseMock implements AuthorizationDatabase {
     private HashMap<String, String> userDatabase = new HashMap<String, String>();
     private HashMap<Integer, AuthorizationData> authzCodeDatabase = new HashMap<Integer, AuthorizationData>();
     private HashMap<Integer, AccessTokenData> accessTokenDatabase = new HashMap<Integer, AccessTokenData>();
+    private HashMap<Integer, Integer> clientSecretDatabase = new HashMap<Integer, Integer>();
 
     public AuthorizationDatabaseMock() {
         userDatabase.put("Jens", "123456");
         userDatabase.put("Mathias", "654321");
         userDatabase.put("woopwoop", "123");
+        clientSecretDatabase.put(1337, 7331);
     }
 
     public boolean validateUserPassword(String username, String password) {
@@ -61,11 +63,20 @@ public class AuthorizationDatabaseMock implements AuthorizationDatabase {
     }
 
     public boolean validateTokenForScope(AuthorizationServerResource.Scope scope, int accessToken) {
-        return accessTokenDatabase.get(accessToken) != null;
+        //test whether accestoken is in database, and hasn't expired
+        long currentTime = System.currentTimeMillis();
+        AccessTokenData tokenData = accessTokenDatabase.get(accessToken);
+        if (tokenData == null) return false;
+        if (currentTime > tokenData.getCreatedTime() + tokenData.getExpirationTime()) return false;
+        return true;
     }
 
     public String getUserFromToken(int accessToken){
         return accessTokenDatabase.get(accessToken).userID;
+    }
+
+    public boolean validateClient(int clientID, int secret) {
+        return clientSecretDatabase.get(clientID).equals(secret);
     }
 
 

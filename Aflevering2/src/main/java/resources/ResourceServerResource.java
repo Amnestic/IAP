@@ -35,13 +35,14 @@ public class ResourceServerResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/request_public_info")
-    public UserData requestPublicInfo(@QueryParam("access_token") String accessToken) {
+    public UserData requestPublicInfo(@QueryParam("access_token") int accessToken) {
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://localhost:8080").path("authorization/validate_token").queryParam("access_token", accessToken);
         Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
         TokenValidation validation = response.readEntity(TokenValidation.class);
 
         if (!validation.isValid()) throw new AuthorizationDeniedException();
+        System.out.print(validation.isValid() + " " + validation.getUserID());
 
         return resourceDatabase.getData(validation.getUserID());
     }

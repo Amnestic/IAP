@@ -86,13 +86,14 @@ public class AuthorizationServerResource {
     @POST
     @Path("/access_token_request")
     public AccessToken accessTokenRequest(@NotNull @FormParam("grant_type") String grantType, @NotNull @FormParam("code") int code,
-                                          @NotNull @FormParam("redirect_uri") String redirectURI, @NotNull @FormParam("client_id") int clientID) {
+                                          @NotNull @FormParam("redirect_uri") String redirectURI, @NotNull @FormParam("client_id") int clientID,
+                                          @NotNull @FormParam("secret") int secret) {
         if (!grantType.equals("code")) throw new AuthorizationDeniedException();
 
         // TODO should couple code with its scope
 
         if (!authorizationDatabase.validateCodeForClient(code, clientID, redirectURI)) throw new AuthorizationDeniedException();
-
+        if (!authorizationDatabase.validateClient(clientID, secret)) throw new AuthorizationDeniedException();
         AccessToken accessToken = authorizationDatabase.createAndStoreAccessToken(code);
         authorizationDatabase.deleteAuthorizationCode(code);
 

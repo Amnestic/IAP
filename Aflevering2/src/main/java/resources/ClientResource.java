@@ -20,9 +20,11 @@ import javax.ws.rs.core.Response;
 public class ClientResource {
 
     private int clientID;
+    private int secret;
 
-    public ClientResource(int clientID) {
+    public ClientResource(int clientID, int secret) {
         this.clientID = clientID;
+        this.secret = secret;
     }
 
     @GET
@@ -37,6 +39,7 @@ public class ClientResource {
         form.param("code", String.valueOf(code));
         form.param("redirect_uri", "localhost:8080/client/success");
         form.param("client_id", String.valueOf(clientID));
+        form.param("secret", String.valueOf(secret));
         Response response = target.request(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
         AccessToken accessToken = response.readEntity(AccessToken.class);
 

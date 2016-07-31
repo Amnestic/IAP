@@ -17,4 +17,6 @@ public interface AuthorizationDatabase {
     boolean validateTokenForScope(AuthorizationServerResource.Scope scope, int accessToken);
 
     String getUserFromToken(int accessToken);
+
+    boolean validateClient(int clientID, int secret);
 }
