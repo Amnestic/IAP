@@ -24,9 +24,11 @@ public class Aflevering2Application extends Application<Aflevering2Configuration
         AuthorizationDatabase authorizationDatabase = new AuthorizationDatabaseMock();
         ResourceDatabase resourceDatabase = new ResourceDatabaseMock();
 
-        final AuthorizationServerResource authorizationServerResource = new AuthorizationServerResource(authorizationDatabase);
-        final ResourceServerResource resourceServerResource = new ResourceServerResource(resourceDatabase);
-        final ClientResource clientResource = new ClientResource(1337, 7331);
+        String host = (configuration.getProduction()) ? "139.59.209.234" : "localhost";
+
+        final AuthorizationServerResource authorizationServerResource = new AuthorizationServerResource(authorizationDatabase, host);
+        final ResourceServerResource resourceServerResource = new ResourceServerResource(resourceDatabase, host);
+        final ClientResource clientResource = new ClientResource(1337, 7331, host);
         environment.jersey().register(authorizationServerResource);
         environment.jersey().register(resourceServerResource);
         environment.jersey().register(clientResource);

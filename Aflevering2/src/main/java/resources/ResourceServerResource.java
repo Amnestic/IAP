@@ -22,9 +22,11 @@ import javax.ws.rs.core.Response;
 public class ResourceServerResource {
 
     private ResourceDatabase resourceDatabase;
+    private String host;
 
-    public ResourceServerResource(ResourceDatabase resourceDatabase) {
+    public ResourceServerResource(ResourceDatabase resourceDatabase, String host) {
         this.resourceDatabase = resourceDatabase;
+        this.host = host;
     }
 
     @GET
@@ -37,7 +39,7 @@ public class ResourceServerResource {
     @Path("/request_public_info")
     public UserData requestPublicInfo(@QueryParam("access_token") int accessToken) {
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://localhost:8080").path("authorization/validate_token").queryParam("access_token", accessToken);
+        WebTarget target = client.target(host + ":8080").path("authorization/validate_token").queryParam("access_token", accessToken);
         Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
         TokenValidation validation = response.readEntity(TokenValidation.class);
 

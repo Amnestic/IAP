@@ -19,9 +19,11 @@ import java.util.Optional;
 public class AuthorizationServerResource {
 
     private AuthorizationDatabase authorizationDatabase;
+    private String host;
 
-    public AuthorizationServerResource(AuthorizationDatabase authorizationDatabase) {
+    public AuthorizationServerResource(AuthorizationDatabase authorizationDatabase, String host) {
         this.authorizationDatabase = authorizationDatabase;
+        this.host = host;
     }
 
     // State ignored here

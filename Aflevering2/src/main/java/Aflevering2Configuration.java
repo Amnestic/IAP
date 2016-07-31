@@ -9,6 +9,8 @@ public class Aflevering2Configuration extends Configuration {
     @NotEmpty
     private String defaultName = "Stranger";
 
+    private boolean production;
+
     @JsonProperty
     public String getTemplate() {
         return template;
@@ -28,4 +30,10 @@ public class Aflevering2Configuration extends Configuration {
     public void setDefaultName(String name) {
         this.defaultName = name;
     }
+
+    @JsonProperty
+    public void setProduction(boolean production) { this.production = production; }
+
+    @JsonProperty
+    public boolean getProduction() { return production; }
 }
