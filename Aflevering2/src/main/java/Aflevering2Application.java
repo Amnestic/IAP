@@ -24,7 +24,7 @@ public class Aflevering2Application extends Application<Aflevering2Configuration
         AuthorizationDatabase authorizationDatabase = new AuthorizationDatabaseMock();
         ResourceDatabase resourceDatabase = new ResourceDatabaseMock();
 
-        String host = (configuration.getProduction()) ? "139.59.209.234" : "localhost";
+        String host = (configuration.getProduction()) ? "http://139.59.209.234" : "http://localhost";
 
         final AuthorizationServerResource authorizationServerResource = new AuthorizationServerResource(authorizationDatabase, host);
         final ResourceServerResource resourceServerResource = new ResourceServerResource(resourceDatabase, host);

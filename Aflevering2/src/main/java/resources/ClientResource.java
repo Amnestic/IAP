@@ -39,7 +39,7 @@ public class ClientResource {
         Form form = new Form();
         form.param("grant_type", "code");
         form.param("code", String.valueOf(code));
-        form.param("redirect_uri", host + "/client/success");
+        form.param("redirect_uri", host + ":8080/client/success");
         form.param("client_id", String.valueOf(clientID));
         form.param("secret", String.valueOf(secret));
         Response response = target.request(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
@@ -56,6 +56,6 @@ public class ClientResource {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public String index() {
-        return "<a href=\"" + host + "/authorization/request_authz?response_type=code&client_id=1337&redirect_uri=" + host + ":8080/client/success\">Klik her for at authorize 1337!</a>";
+        return "<a href=\"" + host + ":8080/authorization/request_authz?response_type=code&client_id=1337&redirect_uri=" + host + ":8080/client/success\">Klik her for at authorize 1337!</a>";
     }
 }
