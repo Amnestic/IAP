@@ -55,6 +55,6 @@ public class Database {
 
     public boolean validateLogin(String username, String password) {
         String correctPassword = users.get(username);
-        return correctPassword == password;
+        return correctPassword.equals(password);
     }
 }
