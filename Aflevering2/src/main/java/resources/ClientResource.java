@@ -47,6 +47,7 @@ public class ClientResource {
 
         // request resource?
         target = client.target(host + ":8080").path("resource/request_public_info").queryParam("access_token", accessToken.getAccessToken());
+
         response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
         UserData data = response.readEntity(UserData.class);
 

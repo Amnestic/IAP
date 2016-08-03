@@ -8,6 +8,7 @@ import db.ResourceDatabase;
 import db.ResourceDatabaseMock;
 import exceptions.AuthorizationDeniedException;
 
+
 import javax.ws.rs.*;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -16,6 +17,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 
 @Path("/resource")
 @Produces(MediaType.APPLICATION_JSON)
