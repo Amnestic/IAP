@@ -1,3 +1,12 @@
 production: false
 productionhost: http://139.59.209.234:8080
-localhost: http://localhost:8080
+localhost: https://localhost:8080
+
+server:
+  applicationConnectors:
+  - keyStorePassword: changeit
+    keyStorePath: src/main/resources/keystore/keystore.jks
+    type: https
+    port: 8080
+    validateCerts: false
+    trustStorePath: C:/Program Files/Java/jre7/lib/security/cacerts

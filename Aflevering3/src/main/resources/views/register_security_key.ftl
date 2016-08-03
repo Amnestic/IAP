@@ -5,9 +5,10 @@
     <script>
         var challenge = ${challenge};
         setTimeout(function() {
-            u2f.register("http://localhost:8080", challenge.registerRequests, [],
+            u2f.register("${APP_ID}", challenge.registerRequests, [],
                     function (deviceResponse) {
-                        document.getElementById('response-input').value = JSON.stringify(deviceResponse)
+                        document.getElementById('response-input').value = JSON.stringify(deviceResponse);
+                        console.log(deviceResponse);
                         document.getElementById('login-form').submit();
                     })
         }, 1500)

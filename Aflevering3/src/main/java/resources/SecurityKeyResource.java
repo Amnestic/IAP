@@ -19,7 +19,7 @@ import com.yubico.u2f.U2F;
 public class SecurityKeyResource {
     private String APP_ID;
     private Database database;
-    private U2F u2f = U2F.withoutAppIdValidation();
+    private U2F u2f = new U2F();
 
     public SecurityKeyResource(String APP_ID, Database database) {
         this.APP_ID = APP_ID;
@@ -43,18 +43,18 @@ public class SecurityKeyResource {
         database.insertUser(username, password);
         RegisterRequestData challenge = u2f.startRegistration(APP_ID, database.getDevicesForUser(username));
         database.insertChallenge(username, challenge);
-        return new RegisterSecurityKeyView(username, challenge.toJson());
+        return new RegisterSecurityKeyView(username, challenge.toJson(), APP_ID);
     }
 
     @Path("/finish_registration")
     @POST
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_HTML)
     public String finishRegistration(@FormParam("username") String username, @FormParam("response-input") String responseInput) {
         RegisterRequestData challenge = database.findChallenge(username);
         database.deleteChallenge(username);
         DeviceRegistration registeredDevice = u2f.finishRegistration(challenge, RegisterResponse.fromJson(responseInput));
         database.insertDeviceForUser(username, registeredDevice);
-        return "Success! <a href=\"/login\">Login here</a>";
+        return "Success! <a href=\"login\">Login here</a>";
     }
 
     @Path("/login")
