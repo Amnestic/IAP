@@ -1,6 +1,7 @@
 package db;
 
 import com.yubico.u2f.data.DeviceRegistration;
+import com.yubico.u2f.data.messages.AuthenticateRequestData;
 import com.yubico.u2f.data.messages.RegisterRequestData;
 
 import java.util.ArrayList;
@@ -9,12 +10,14 @@ import java.util.HashMap;
 public class Database {
     private HashMap<String, String> users;
     private HashMap<String, ArrayList<DeviceRegistration>> registeredDevices;
-    private HashMap<String, RegisterRequestData> challengeStore;
+    private HashMap<String, RegisterRequestData> registrationChallengeStore;
+    private HashMap<String, AuthenticateRequestData> authenticationChallengeStore;
 
     public Database() {
         this.users = new HashMap<String, String>();
         this.registeredDevices = new HashMap<String, ArrayList<DeviceRegistration>>();
-        this.challengeStore = new HashMap<String, RegisterRequestData>();
+        this.registrationChallengeStore = new HashMap<String, RegisterRequestData>();
+        this.authenticationChallengeStore = new HashMap<String, AuthenticateRequestData>();
     }
 
     public void insertUser(String username, String password) {
@@ -41,16 +44,28 @@ public class Database {
         devicesForUser.add(device);
     }
 
-    public void insertChallenge(String username, RegisterRequestData challenge) {
-        challengeStore.put(username, challenge);
+    public void insertAuthChallenge(String username, AuthenticateRequestData challenge) {
+        authenticationChallengeStore.put(username, challenge);
     }
 
-    public RegisterRequestData findChallenge(String username) {
-        return challengeStore.get(username);
+    public void insertRegChallenge(String username, RegisterRequestData challenge) {
+        registrationChallengeStore.put(username, challenge);
     }
 
-    public void deleteChallenge(String username) {
-        challengeStore.remove(username);
+    public RegisterRequestData getRegistrationChallenge(String username) {
+        return registrationChallengeStore.get(username);
+    }
+
+    public AuthenticateRequestData getAuthenticationChallenge(String username) {
+        return authenticationChallengeStore.get(username);
+    }
+
+    public void deleteRegistrationChallenge(String username) {
+        registrationChallengeStore.remove(username);
+    }
+
+    public void deleteAuthenticationChallenge(String username) {
+        authenticationChallengeStore.remove(username);
     }
 
     public boolean validateLogin(String username, String password) {

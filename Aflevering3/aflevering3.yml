@@ -9,4 +9,4 @@ server:
     type: https
     port: 8080
     validateCerts: false
-    trustStorePath: C:/Program Files/Java/jre7/lib/security/cacerts
+    trustStorePath: C:/Program Files/Java/jre1.8.0_101/lib/security/cacerts

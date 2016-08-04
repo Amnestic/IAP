@@ -9,14 +9,14 @@
                     function (deviceResponse) {
                         document.getElementById('response-input').value = JSON.stringify(deviceResponse);
                         console.log(deviceResponse);
-                        document.getElementById('login-form').submit();
+                        document.getElementById('register-form').submit();
                     })
         }, 1500)
     </script>
 </head>
 <body>
-<h2>Tap the gold button on the Yubikey</h2>
-<form id="login-form" method="post" action="finish_registration">
+<h2>Tap the gold button on the Yubikey to register</h2>
+<form id="register-form" method="post" action="finish_registration">
     <input name="username" type="hidden" value="${username}">
     <input id="response-input" name="response-input" type="hidden">
 </form>
