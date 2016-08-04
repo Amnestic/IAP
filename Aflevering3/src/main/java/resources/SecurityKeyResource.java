@@ -20,7 +20,7 @@ import com.yubico.u2f.U2F;
 public class SecurityKeyResource {
     private String APP_ID;
     private Database database;
-    private U2F u2f = new U2F();
+    private U2F u2f = U2F.withoutAppIdValidation();
 
     public SecurityKeyResource(String APP_ID, Database database) {
         this.APP_ID = APP_ID;
