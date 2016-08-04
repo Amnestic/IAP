@@ -1,5 +1,5 @@
 production: true
-productionhost: http://139.59.209.234:8080
+productionhost: https://139.59.209.234:8080
 localhost: https://localhost:8080
 
 server:
