@@ -1,4 +1,4 @@
-production: false
+production: true
 productionhost: http://139.59.209.234:8080
 localhost: https://localhost:8080
 
@@ -9,4 +9,4 @@ server:
     type: https
     port: 8080
     validateCerts: false
-    trustStorePath: C:/Program Files/Java/jre1.8.0_101/lib/security/cacerts
+    trustStorePath: /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/cacerts
