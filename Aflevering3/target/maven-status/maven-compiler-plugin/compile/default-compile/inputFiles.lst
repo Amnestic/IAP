@@ -1,5 +1,10 @@
+C:\Users\Jens\WebstormProjects\IAP\Aflevering3\src\main\java\views\AuthenticateSecurityKeyView.java
+C:\Users\Jens\WebstormProjects\IAP\Aflevering3\src\main\java\views\LoginView.java
 C:\Users\Jens\WebstormProjects\IAP\Aflevering3\src\main\java\Aflevering3Configuration.java
 C:\Users\Jens\WebstormProjects\IAP\Aflevering3\src\main\java\views\IndexView.java
-C:\Users\Jens\WebstormProjects\IAP\Aflevering3\src\main\java\db\UserDatabase.java
-C:\Users\Jens\WebstormProjects\IAP\Aflevering3\src\main\java\resources\SecretKeyResource.java
+C:\Users\Jens\WebstormProjects\IAP\Aflevering3\src\main\java\views\RegisterView.java
+C:\Users\Jens\WebstormProjects\IAP\Aflevering3\src\main\java\db\Database.java
+C:\Users\Jens\WebstormProjects\IAP\Aflevering3\src\main\java\exceptions\InvalidLoginException.java
+C:\Users\Jens\WebstormProjects\IAP\Aflevering3\src\main\java\views\RegisterSecurityKeyView.java
+C:\Users\Jens\WebstormProjects\IAP\Aflevering3\src\main\java\resources\SecurityKeyResource.java
 C:\Users\Jens\WebstormProjects\IAP\Aflevering3\src\main\java\Aflevering3Application.java
